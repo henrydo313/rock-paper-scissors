@@ -12,11 +12,13 @@ function playRound(computerChoice, playerSelection) {
     playerSelection = playerSelection.toLowerCase();
     let playerChoice = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
 
+    // Draw outcome
     if (computerChoice === playerChoice) {
         console.log(`You Draw! ${computerChoice} draws ${computerChoice}.`);
         return DRAW;
     }
 
+    // Winning outcome
     if (computerChoice === "Rock" && playerChoice === "Paper" ||
         computerChoice === "Paper" && playerChoice === "Scissors" ||
         computerChoice === "Scissors" && playerChoice === "Rock") {
@@ -24,10 +26,12 @@ function playRound(computerChoice, playerSelection) {
         return WIN;
     }
 
+    // Losing outcome
     console.log(`You Lose! ${computerChoice} beats ${playerChoice}.`);
     return LOSE;
 }
 
+// Check if input is a valid option
 function validateChoice(choice) {
     return ["Rock", "Paper", "Scissors"].
         includes(choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase());
@@ -42,6 +46,7 @@ function game() {
     let roundOutcome;
 
     while (round < 6) {
+        // Check input
         playerChoice = prompt("Rock, Paper or Scissors?");
         while (validateChoice(playerChoice) === false) {
             playerChoice = prompt("Invalid option. Rock, Paper or Scissors?");
@@ -61,8 +66,10 @@ function game() {
         round++;
     }
 
+    // Draw outcome
     if (playerScore === computerScore) console.log(`It's a Draw! ${playerScore} - ${computerScore}.`);
 
+    // Win or Lose outcome
     playerScore > computerScore ? console.log(`You Win! ${playerScore} - ${computerScore}.`) 
                                 : console.log(`You Lose! ${playerScore} - ${computerScore}.`);
 

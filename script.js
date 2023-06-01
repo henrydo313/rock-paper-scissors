@@ -8,7 +8,7 @@ function getComputerChoice() {
 }
 
 function playRound(computerChoice, playerSelection) {
-    // Convert input standard format
+    // Convert input into a standard format
     playerSelection = playerSelection.toLowerCase();
     let playerChoice = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
 
@@ -66,10 +66,8 @@ function game() {
         round++;
     }
 
-    // Draw outcome
     if (playerScore === computerScore) console.log(`It's a Draw! ${playerScore} - ${computerScore}.`);
 
-    // Win or Lose outcome
     playerScore > computerScore ? console.log(`You Win! ${playerScore} - ${computerScore}.`) 
                                 : console.log(`You Lose! ${playerScore} - ${computerScore}.`);
 

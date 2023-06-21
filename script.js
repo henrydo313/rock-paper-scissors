@@ -38,40 +38,42 @@ function validateChoice(choice) {
 }
 
 function game() {
-    let round = 1;
-    let playerChoice;
-    let computerChoice;
     let playerScore = 0;
     let computerScore = 0;
-    let roundOutcome;
 
-    while (round < 6) {
-        // Check input
-        playerChoice = prompt("Rock, Paper or Scissors?");
-        while (validateChoice(playerChoice) === false) {
-            playerChoice = prompt("Invalid option. Rock, Paper or Scissors?");
-        }
-        computerChoice = getComputerChoice(); 
+    const resetGame = function() {
+        playerScore = 0;
+        computerScore = 0;
 
-        roundOutcome = playRound(computerChoice, playerChoice);
-        if (roundOutcome === DRAW) {
-            console.log(`ROUND ${round}\nPlayer: ${playerScore}\tComputer: ${computerScore}.`);
-            round++;
-            continue;
-        }
-
-        if (roundOutcome === WIN) playerScore += 1;
-        if (roundOutcome === LOSE) computerScore += 1;
-        console.log(`ROUND ${round}\nPlayer: ${playerScore}\tComputer: ${computerScore}.`);
-        round++;
+        playerScoreDisplay.innerText = `Player Score: ${playerScore}`;
+        computerScoreDisplay.innerText = `Computer Score: ${computerScore}`;
     }
 
-    if (playerScore === computerScore) console.log(`It's a Draw! ${playerScore} - ${computerScore}.`);
+    const playerScoreDisplay = document.querySelector(".playerScore");
+    const computerScoreDisplay = document.querySelector(".pcScore");
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            let score = playRound(getComputerChoice(), button.innerText);
+            if (score === WIN) playerScore += 1;
+            if (score === LOSE) computerScore += 1;
 
-    playerScore > computerScore ? console.log(`You Win! ${playerScore} - ${computerScore}.`) 
-                                : console.log(`You Lose! ${playerScore} - ${computerScore}.`);
+            playerScoreDisplay.innerText = `Player Score: ${playerScore}`;
+            computerScoreDisplay.innerText = `Computer Score: ${computerScore}`;
 
-    return 1;
+            if (playerScore === 5) {
+                alert("YOU WIN!");
+                resetGame();
+            }
+            if (computerScore === 5) {
+                alert("YOU LOSE!")
+                resetGame();
+            }
+        });
+    });
+
+    const resetButton = document.querySelector(".reset");
+    resetButton.addEventListener('click', resetGame);
 }
 
 game();
